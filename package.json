@@ -1,0 +1,19 @@
+{
+    "name": "Chilly Or Not",
+    "version": "1.0.0",
+    "description": "Webapp to tell you whethr or not it's chilly",
+    "main": "server.js",
+    "scripts": {
+    "start": "node server.js"
+  },
+    "repository": {
+    "type": "git",
+    "url": ""
+  },
+    "author": "Quoc Tran",
+    "license": "",
+    "bugs": {
+    "url": ""
+  },
+    "homepage": "https://github.com/quoctran98/ChillyOrNot"
+  }

@@ -9,6 +9,8 @@ let config = JSON.parse(fs.readFileSync("server_config.json"));
 console.log("ChillyOrNot server started with config: ");
 console.log(config);
 
+const port = process.env.PORT || 3000
+
 app.get("/", function (req, res) {
     res.sendFile(path.join(__dirname + '/pages/index.html'));
 })
@@ -29,4 +31,4 @@ app.get("/chillyCheck", function (req, res) {
     });
 });
 
-app.listen(config.port);
+app.listen(port);
