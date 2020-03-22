@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<center><b>
+  <p id="chillyMessage" style="font-family:courier; font-size:1000%;"></p>
+</b></center>
+<script>
+
+	const chillyURL = "http://localhost:8080";
+
+	const chillyMessage = document.getElementById("chillyMessage");
+	const chillyThreshold = 70;
+
+	function httpGetAsync(theUrl, callback) {
+			var xmlHttp = new XMLHttpRequest();
+			xmlHttp.onreadystatechange = function() { 
+					if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+							callback(xmlHttp.responseText);
+			}
+			xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+			xmlHttp.send(null);
+	}
+
+	function getLocation() {
+		navigator.geolocation.watchPosition(chillyCheck,
+		function(error) {
+			if (error.code == error.PERMISSION_DENIED)
+				console.log("location permission denied");
+				chillyMessage.innerHTML = "LOCATION REQUIRED FOR CHILLINESS ASSESSEMENT";
+				document.body.style.background = "red";
+		});
+	}
+
+	function chillyCheck(position) {
+		console.log(position);
+		let latitude = position.coords.latitude;
+		let longitude = position.coords.longitude;
+		let url = chillyURL + "/chillyCheck?latitude=" + latitude + "&longitude=" + longitude;
+		httpGetAsync(url, showMessage);
+	}
+
+	function showMessage(weatherResponse) {
+		console.log(weatherResponse);
+		if (weatherResponse == "chilly") {
+			chillyMessage.innerHTML = "CHILLY";
+			document.body.style.background = "#85C1E9";
+		} else {
+			chillyMessage.innerHTML = "NOT CHILLY";
+			document.body.style.background = "#F8C471";
+		}
+	}
+	
+	getLocation();
+</script>
+</head>
+</html>                            
